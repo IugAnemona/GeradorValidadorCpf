@@ -17,14 +17,13 @@ def aleatorio():
     return cpf
 
 def cpf(cpf):
-    while True:
-        cpfFormatado = cpf.replace(".", "")
-        cpfFormatado = cpfFormatado.replace("-", "")
-        if cpfFormatado.isdigit():
-            return cpfFormatado
-        else:
-            print("Formato de cpf invalido, insira novamente.")
-            continue
+    
+    cpfFormatado = cpf.replace(".", "")
+    cpfFormatado = cpfFormatado.replace("-", "")
+    if cpfFormatado.isdigit():
+        return cpfFormatado
+    else:
+         return None
 
 
 def gerarPrimeiroDigito(cpf):
@@ -37,7 +36,8 @@ def gerarPrimeiroDigito(cpf):
     digito = soma * 10 % 11
     digito = digito if digito <=9 else 0
     cpfPrimeiroDigito = cpf[0:9] + f"{digito}"
-    return cpfPrimeiroDigito
+    return gerarSegundoDigito(cpfPrimeiroDigito)
+    
 
 def gerarSegundoDigito(cpf):
     soma = 0
@@ -59,15 +59,20 @@ def validador(x, y):
 
 while sair != "S":
     sel = menu()
+    x = None
+
     if sel == "V":
-        cpfInserido = input("Digite o cpf: ")
-        x = cpf(cpfInserido)
-        y = gerarSegundoDigito(gerarPrimeiroDigito(x))
+        while x is None:
+            cpfInserido = input("Digite o cpf: ")
+            x = cpf(cpfInserido)
+            if x == None:
+                print("Formato de cpf invalido")
+        y = gerarPrimeiroDigito(x)
         validador(x, y)
     elif sel == "G":
 
         x = cpf(aleatorio())
-        y = gerarSegundoDigito(gerarPrimeiroDigito(x))
+        y = gerarPrimeiroDigito(x)
         print(y)
 
     sair = input("Deseja sair: [S]im / [N]ão: ").upper()
