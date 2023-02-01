@@ -17,13 +17,13 @@ def aleatorio():
     return cpf
 
 def cpf(cpf):
-    
+
     cpfFormatado = cpf.replace(".", "")
     cpfFormatado = cpfFormatado.replace("-", "")
-    if cpfFormatado.isdigit():
+    if cpfFormatado.isdigit() and len(cpfFormatado) == 11:
         return cpfFormatado
     else:
-         return None
+        return None
 
 
 def gerarPrimeiroDigito(cpf):
